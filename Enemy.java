@@ -24,7 +24,8 @@ public class Enemy {
 
         // default enemy
         if (type == 1) {
-            color1 = Color.BLUE;
+            // color1 = Color.BLUE;
+            color1 = new Color(0, 0, 255, 128);
             if (rank == 1) {
                 speed = 2;
                 r = 5;
@@ -43,20 +44,46 @@ public class Enemy {
                 health = 4;
             }
         } else if (type == 2) { // stronger, faster default
-            color1 = Color.RED;
+            // color1 = Color.RED;
+            color1 = new Color(255, 0, 0, 128);
 
             if (rank == 1) {
                 speed = 3;
                 r = 5;
                 health = 2;
+            } else if (rank == 2) {
+                speed = 3;
+                r = 10;
+                health = 3;
+            } else if (rank == 3) {
+                speed = 2.5;
+                r = 20;
+                health = 3;
+            } else if (rank == 4) {
+                speed = 2.5;
+                r = 30;
+                health = 4;
             }
         } else if (type == 3) { // slow, but hard to kill
-            color1 = Color.GREEN;
+            // color1 = Color.GREEN;
+            color1 = new Color(0, 255, 0, 128);
 
             if (rank == 1) {
                 speed = 1.5;
                 r = 5;
                 health = 5;
+            } else if (rank == 2) {
+                speed = 1.5;
+                r = 10;
+                health = 6;
+            } else if (rank == 3) {
+                speed = 1.5;
+                r = 25;
+                health = 7;
+            } else if (rank == 4) {
+                speed = 1.5;
+                r = 45;
+                health = 8;
             }
         }
 
@@ -84,7 +111,7 @@ public class Enemy {
         return y;
     }
 
-    public double getR() {
+    public int getR() {
         return r;
     }
 
@@ -115,6 +142,10 @@ public class Enemy {
 
             if (type == 1) {
                 amount = 3;
+            } else if (type == 2) {
+                amount = 3;
+            } else if (type == 3) {
+                amount = 4;
             }
 
             for (int i = 0; i < amount; i++) {

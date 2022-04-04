@@ -11,8 +11,8 @@ import java.util.ArrayList;
 public class GamePanel extends JPanel implements Runnable, KeyListener {
 
     //Fields
-    public static int WIDTH = 400;
-    public static int HEIGHT = 400;
+    public static int WIDTH = 600;
+    public static int HEIGHT = 600;
     private Thread thread;
     private boolean running;
     private BufferedImage image;
@@ -23,6 +23,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public static ArrayList<Bullet> bullets;
     public static ArrayList<Enemy> enemies;
     public static ArrayList<PowerUp> powerUps;
+    public static ArrayList<Explosion> explosions;
 
     private long waveStartTimer;
     private long waveStartTimerDiff;
@@ -66,6 +67,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         bullets = new ArrayList<Bullet>();
         enemies = new ArrayList<Enemy>();
         powerUps = new ArrayList<PowerUp>();
+        explosions = new ArrayList<Explosion>();
 
         // Spawn enemies variables
         waveStartTimer = 0;
@@ -159,6 +161,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             }
         }
 
+        // explosion update
+        for (int i = 0; i < explosions.size(); i++) {
+            boolean remove = explosions.get(i).update();
+            if (remove) {
+                explosions.remove(i);
+                i--;
+            }
+        }
+
         // bullet-enemy collision
         for (int i = 0; i < bullets.size(); i++) {
             Bullet b = bullets.get(i);
@@ -205,6 +216,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 i--;
 
                 e.explode();
+                explosions.add(new Explosion(e.getX(), e.getY(), e.getR(), e.getR() + 20));
             }
         }
 
@@ -279,6 +291,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         // Draw Power Ups
         for (int i = 0; i < powerUps.size(); i++) {
             powerUps.get(i).draw(g);
+        }
+
+        // Draw Explosions
+        for (int i = 0; i < explosions.size(); i++) {
+            explosions.get(i).draw(g);
         }
 
         // draw wave number
