@@ -130,12 +130,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 double dy = by - ey;
                 double dist = Math.sqrt(dx * dx + dy * dy);
 
-                System.out.println("dist : " + dist);
-                System.out.println("br : " + br);
-                System.out.println("er : " + er);
-
                 if (dist < br + er) {
-                    System.out.println("vurdu");
                     e.hit();
                     bullets.remove(i);
                     i--;
@@ -147,7 +142,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         // Check Dead Enemies
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).isDead()) {
-                System.out.println("Silindi");
                 enemies.remove(i);
                 i--;
             }
