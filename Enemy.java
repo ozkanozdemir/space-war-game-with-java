@@ -28,6 +28,22 @@ public class Enemy {
                 r = 5;
                 health = 1;
             }
+        } else if (type == 2) { // stronger, faster default
+            color1 = Color.RED;
+
+            if (rank == 1) {
+                speed = 3;
+                r = 5;
+                health = 2;
+            }
+        } else if (type == 3) { // slow, but hard to kill
+            color1 = Color.GREEN;
+
+            if (rank == 1) {
+                speed = 1.5;
+                r = 5;
+                health = 5;
+            }
         }
 
         x = Math.random() * GamePanel.WIDTH / 2 + GamePanel.WIDTH / 4;

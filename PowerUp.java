@@ -41,7 +41,7 @@ public class PowerUp {
         return r;
     }
 
-    public double getType() {
+    public int getType() {
         return type;
     }
 
