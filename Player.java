@@ -49,6 +49,12 @@ public class Player {
 
     //Functions
 
+    public int getx() { return x; }
+    public int gety() { return y; }
+    public int getr() { return r; }
+
+    public int getLives() { return lives; }
+
     public void setLeft(Boolean b){ left = b;}
     public void setRight(Boolean b){ right = b;}
     public void setUp(Boolean b){ up = b;}
