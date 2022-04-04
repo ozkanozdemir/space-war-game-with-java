@@ -21,14 +21,17 @@ public class Player {
     private long firingTimer;
     private long firingDelay;
 
+    private boolean recovering;
+    private long recoveryTimer;
+
     private int lives;
     private Color color1;
     private Color color2;
 
+    private int score;
 
-    //Constructor
-    public Player (){
-
+    // Constructor
+    public Player() {
         x = GamePanel.WIDTH / 2;
         y = GamePanel.HEIGHT / 2;
         r = 5;
@@ -45,71 +48,127 @@ public class Player {
         firingTimer = System.nanoTime();
         firingDelay = 200;
 
+        recovering = false;
+        recoveryTimer = 0;
+
+        score = 0;
     }
 
     //Functions
 
-    public int getx() { return x; }
-    public int gety() { return y; }
-    public int getr() { return r; }
+    public int getx() {
+        return x;
+    }
 
-    public int getLives() { return lives; }
+    public int gety() {
+        return y;
+    }
 
-    public void setLeft(Boolean b){ left = b;}
-    public void setRight(Boolean b){ right = b;}
-    public void setUp(Boolean b){ up = b;}
-    public void setDown(Boolean b){ down = b;}
+    public int getr() {
+        return r;
+    }
 
-    public void  setFiring(Boolean b) { firing = b;}
+    public int getScore() {
+        return score;
+    }
 
-    public void update(){
+    public int getLives() {
+        return lives;
+    }
 
-        if(left){
+    public boolean isRecovering() {
+        return recovering;
+    }
+
+    public void setLeft(Boolean b) {
+        left = b;
+    }
+
+    public void setRight(Boolean b) {
+        right = b;
+    }
+
+    public void setUp(Boolean b) {
+        up = b;
+    }
+
+    public void setDown(Boolean b) {
+        down = b;
+    }
+
+    public void setFiring(Boolean b) {
+        firing = b;
+    }
+
+    public void addScore(int i) {
+        score += i;
+    }
+
+    public void loseLife() {
+        lives--;
+        recovering = true;
+        recoveryTimer = System.nanoTime();
+    }
+
+    public void update() {
+
+        if (left) {
             dx = -speed;
         }
         if (right) {
             dx = speed;
         }
-        if (up){
+        if (up) {
             dy = -speed;
         }
-        if (down){
+        if (down) {
             dy = speed;
         }
 
         x += dx;
         y += dy;
 
-        if(x < r) x = r;
+        if (x < r) x = r;
         if (y < r) y = r;
-        if (x > GamePanel.WIDTH - r ) x = GamePanel.WIDTH - r;
-        if (y > GamePanel.HEIGHT - r) y = GamePanel.HEIGHT -r;
+        if (x > GamePanel.WIDTH - r) x = GamePanel.WIDTH - r;
+        if (y > GamePanel.HEIGHT - r) y = GamePanel.HEIGHT - r;
 
         dx = 0;
         dy = 0;
 
-        if(firing){
+        if (firing) {
             long elapsed = (System.nanoTime() - firingTimer) / 1000000;
-            if(elapsed > firingDelay){
+            if (elapsed > firingDelay) {
                 GamePanel.bullets.add(new Bullet(270, x, y));
                 firingTimer = System.nanoTime();
             }
         }
 
+        long elapsed = (System.nanoTime() - recoveryTimer) / 1000000;
+        if (elapsed > 2000) {
+            recovering = false;
+            recoveryTimer = 0;
+        }
     }
 
-    public void draw(Graphics2D g){
+    public void draw(Graphics2D g) {
+        if (recovering) {
+            g.setColor(color2);
+            g.fillOval(x - r, y - r, 2 * r, 2 * r);
 
-        g.setColor(color1);
-        g.fillOval(x - r, y - r, 2 * r,2* r);
+            g.setStroke(new BasicStroke(3));
+            g.setColor(color2.darker());
+            g.drawOval(x - r, y - r, 2 * r, 2 * r);
+            g.setStroke(new BasicStroke(1));
+        } else {
+            g.setColor(color1);
+            g.fillOval(x - r, y - r, 2 * r, 2 * r);
 
-        g.setStroke(new BasicStroke(3));
-        g.setColor(color1.darker());
-        g.drawOval(x - r, y-r, 2 * r, 2 * r);
-        g.setStroke(new BasicStroke(1));
-
-
-
+            g.setStroke(new BasicStroke(3));
+            g.setColor(color1.darker());
+            g.drawOval(x - r, y - r, 2 * r, 2 * r);
+            g.setStroke(new BasicStroke(1));
+        }
     }
 
 

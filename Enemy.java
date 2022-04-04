@@ -5,25 +5,25 @@ public class Enemy {
 
     //Fields
 
-    private double x,y;
-    private int r,health,type,rank;
+    private double x, y;
+    private int r, health, type, rank;
 
-    private double dx,dy,rad,speed;
+    private double dx, dy, rad, speed;
 
     private Color color1;
-    private boolean ready,dead;
+    private boolean ready, dead;
 
     //Constructor
 
-    public Enemy (int type , int rank){
+    public Enemy(int type, int rank) {
 
         this.type = type;
         this.rank = rank;
 
         //Default enemy
-        if(type == 1){
+        if (type == 1) {
             color1 = Color.BLUE;
-            if (rank == 1){
+            if (rank == 1) {
                 speed = 2;
                 r = 5;
                 health = 1;
@@ -43,56 +43,71 @@ public class Enemy {
     }
 
     // Functions
-    public double getx() {return x;}
-    public double gety() {return y;}
-    public double getr() {return r;}
+    public double getx() {
+        return x;
+    }
 
-    public boolean isDead(){ return dead;}
+    public double gety() {
+        return y;
+    }
 
+    public double getr() {
+        return r;
+    }
 
-    public void hit(){
+    public int getType() {
+        return type;
+    }
+
+    public int getRank() {
+        return rank;
+    }
+
+    public boolean isDead() {
+        return dead;
+    }
+
+    public void hit() {
         health--;
-        if(health<0){
+        if (health < 0) {
             dead = true;
         }
     }
 
-
-    public void update (){
-        x+= dx;
+    public void update() {
+        x += dx;
         y += dy;
-        if(!ready){
-            if (x > r && x < GamePanel.WIDTH - r && y > r && y < GamePanel.HEIGHT - r){
+        if (!ready) {
+            if (x > r && x < GamePanel.WIDTH - r && y > r && y < GamePanel.HEIGHT - r) {
                 ready = true;
             }
         }
-        if (x < r && dx < 0 ) {
+        if (x < r && dx < 0) {
             dx = -dx;
         }
-        if (y < r && dy < 0){
+        if (y < r && dy < 0) {
             dy = -dy;
         }
-        if (x > GamePanel.WIDTH - r && dx > 0 ){
+        if (x > GamePanel.WIDTH - r && dx > 0) {
             dx = -dx;
         }
-        if (y > GamePanel.HEIGHT - r && dy > 0){
+        if (y > GamePanel.HEIGHT - r && dy > 0) {
             dy = -dy;
         }
     }
+
     public void draw(Graphics2D g) {
 
         g.setColor(color1);
-        g.fillOval((int) (x-r), (int) (y-r), 2 * r , 2 * r);
+        g.fillOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
 
         g.setStroke(new BasicStroke(3));
         g.setColor(color1.darker());
-        g.drawOval((int) (x-r), (int) (y-r), 2 * r , 2 * r);
+        g.drawOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
         g.setStroke(new BasicStroke(1));
 
 
     }
-
-
 
 
 }
