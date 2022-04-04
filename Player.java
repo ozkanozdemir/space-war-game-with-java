@@ -41,7 +41,7 @@ public class Player {
         color1 = Color.WHITE;
         color2 = Color.RED;
 
-        // TODO - firing false; -  bu satır ide'de hata verdirtiyor. ben anlayamadım. BAKILACAK
+        firing = false;
         firingTimer = System.nanoTime();
         firingDelay = 200;
 
