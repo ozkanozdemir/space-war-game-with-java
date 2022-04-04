@@ -187,9 +187,9 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         // Check Dead Enemies
         for (int i = 0; i < enemies.size(); i++) {
-            if (enemies.get(i).isDead()) {
-                Enemy e = enemies.get(i);
+            Enemy e = enemies.get(i);
 
+            if (e.isDead()) {
                 // chance for powerUp
                 double rand = Math.random();
                 if (rand < 0.001) {
@@ -198,13 +198,13 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                     powerUps.add(new PowerUp(3, e.getX(), e.getY()));
                 } else if (rand < 0.12) {
                     powerUps.add(new PowerUp(2, e.getX(), e.getY()));
-                } else { // TODO: remove else block
-                    powerUps.add(new PowerUp(2, e.getX(), e.getY()));
                 }
 
                 player.addScore(e.getType() + e.getRank());
                 enemies.remove(i);
                 i--;
+
+                e.explode();
             }
         }
 
@@ -335,16 +335,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 enemies.add(new Enemy(1, 1));
             }
         } else if (waveNumber == 2) {
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < 4; i++) {
                 enemies.add(new Enemy(1, 1));
             }
+            enemies.add(new Enemy(1, 2));
+            enemies.add(new Enemy(1, 2));
         } else if (waveNumber == 3) {
-            for (int i = 0; i < 4; i++) {
-                enemies.add(new Enemy(2, 1));
-            }
-            for (int i = 0; i < 4; i++) {
-                enemies.add(new Enemy(3, 1));
-            }
+            enemies.add(new Enemy(1, 3));
+            enemies.add(new Enemy(1, 3));
+            enemies.add(new Enemy(1, 4));
         }
     }
 

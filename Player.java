@@ -185,10 +185,12 @@ public class Player {
             }
         }
 
-        long elapsed = (System.nanoTime() - recoveryTimer) / 1000000;
-        if (elapsed > 2000) {
-            recovering = false;
-            recoveryTimer = 0;
+        if (recovering) {
+            long elapsed = (System.nanoTime() - recoveryTimer) / 1000000;
+            if (elapsed > 2000) {
+                recovering = false;
+                recoveryTimer = 0;
+            }
         }
     }
 
