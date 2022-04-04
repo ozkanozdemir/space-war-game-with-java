@@ -31,9 +31,9 @@ public class Bullet {
     }
 
     //Functions
-    public double getx() {return x;}
-    public double gety() {return y;}
-    public double getr() {return r;}
+    public double getX() {return x;}
+    public double getY() {return y;}
+    public double getR() {return r;}
 
 
     public boolean update() {

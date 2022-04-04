@@ -56,15 +56,15 @@ public class Player {
 
     //Functions
 
-    public int getx() {
+    public int getX() {
         return x;
     }
 
-    public int gety() {
+    public int getY() {
         return y;
     }
 
-    public int getr() {
+    public int getR() {
         return r;
     }
 

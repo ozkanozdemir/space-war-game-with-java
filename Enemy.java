@@ -43,15 +43,15 @@ public class Enemy {
     }
 
     // Functions
-    public double getx() {
+    public double getX() {
         return x;
     }
 
-    public double gety() {
+    public double getY() {
         return y;
     }
 
-    public double getr() {
+    public double getR() {
         return r;
     }
 

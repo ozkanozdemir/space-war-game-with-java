@@ -22,6 +22,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
     public static Player player;
     public static ArrayList<Bullet> bullets;
     public static ArrayList<Enemy> enemies;
+    public static ArrayList<PowerUp> powerUps;
 
     private long waveStartTimer;
     private long waveStartTimerDiff;
@@ -64,6 +65,7 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         player = new Player();
         bullets = new ArrayList<Bullet>();
         enemies = new ArrayList<Enemy>();
+        powerUps = new ArrayList<PowerUp>();
 
         // Spawn enemies variables
         waveStartTimer = 0;
@@ -136,13 +138,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         // Bullet Update
         for (int i = 0; i < bullets.size(); i++) {
-
             boolean remove = bullets.get(i).update();
             if (remove) {
                 bullets.remove(i);
                 i--;
             }
-
         }
 
         // Enemy Update
@@ -150,18 +150,27 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             enemies.get(i).update();
         }
 
+        // Power Up Update
+        for (int i = 0; i < powerUps.size(); i++) {
+            boolean remove = powerUps.get(i).update();
+            if (remove) {
+                powerUps.remove(i);
+                i--;
+            }
+        }
+
         // bullet-enemy collision
         for (int i = 0; i < bullets.size(); i++) {
             Bullet b = bullets.get(i);
-            double bx = b.getx();
-            double by = b.gety();
-            double br = b.getr();
+            double bx = b.getX();
+            double by = b.getY();
+            double br = b.getR();
 
             for (int j = 0; j < enemies.size(); j++) {
                 Enemy e = enemies.get(j);
-                double ex = e.getx();
-                double ey = e.gety();
-                double er = e.getr();
+                double ex = e.getX();
+                double ey = e.getY();
+                double er = e.getR();
 
                 double dx = bx - ex;
                 double dy = by - ey;
@@ -180,6 +189,17 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         for (int i = 0; i < enemies.size(); i++) {
             if (enemies.get(i).isDead()) {
                 Enemy e = enemies.get(i);
+
+                // chance for powerUp
+                double rand = Math.random();
+                if (rand < 0.001) {
+                    powerUps.add(new PowerUp(1, e.getX(), e.getY()));
+                } else if (rand < 0.02) {
+                    powerUps.add(new PowerUp(3, e.getX(), e.getY()));
+                } else if (rand < 0.12) {
+                    powerUps.add(new PowerUp(2, e.getX(), e.getY()));
+                }
+
                 player.addScore(e.getType() + e.getRank());
                 enemies.remove(i);
                 i--;
@@ -188,15 +208,15 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         // player-enemy collision
         if (!player.isRecovering()) {
-            int px = player.getx();
-            int py = player.gety();
-            int pr = player.getr();
+            int px = player.getX();
+            int py = player.getY();
+            int pr = player.getR();
 
             for (int i = 0; i < enemies.size(); i++) {
                 Enemy e = enemies.get(i);
-                double ex = e.getx();
-                double ey = e.gety();
-                double er = e.getr();
+                double ex = e.getX();
+                double ey = e.getY();
+                double er = e.getR();
 
                 double dx = px - ex;
                 double dy = py - ey;
@@ -226,6 +246,11 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
             enemies.get(i).draw(g);
         }
 
+        // Draw Power Ups
+        for (int i = 0; i < powerUps.size(); i++) {
+            powerUps.get(i).draw(g);
+        }
+
         // draw wave number
         if (waveStartTimer != 0) {
             g.setFont(new Font("Century Gothic", Font.PLAIN, 18));
@@ -242,10 +267,10 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
         // draw player lives
         for (int i = 0; i < player.getLives(); i++) {
             g.setColor(Color.WHITE);
-            g.fillOval(20 + (20 * i), 20, player.getr() * 2, player.getr() * 2);
+            g.fillOval(20 + (20 * i), 20, player.getR() * 2, player.getR() * 2);
             g.setStroke(new BasicStroke(3));
             g.setColor(Color.WHITE.darker());
-            g.drawOval(20 + (20 * i), 20, player.getr() * 2, player.getr() * 2);
+            g.drawOval(20 + (20 * i), 20, player.getR() * 2, player.getR() * 2);
             g.setStroke(new BasicStroke(1));
         }
 
