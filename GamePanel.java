@@ -117,6 +117,18 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
 
         }
 
+        g.setColor(new Color(0,100,255));
+        g.fillRect(0,0,WIDTH,HEIGHT);
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Centruy Gothic", Font.PLAIN,16));
+        String s = "G A M E   O V E R";
+        int length = (int) g.getFontMetrics().getStringBounds(s,g).getWidth();
+        g.drawString(s, (WIDTH - length) / 2, HEIGHT / 2);
+        s = "Final Score:  " + player.getScore();
+        length = (int) g.getFontMetrics().getStringBounds(s,g).getWidth();
+        g.drawString(s, (WIDTH - length) / 2, HEIGHT / 2+30);
+        gameDraw();
+
     }
 
     private void gameUpdate() {
@@ -228,8 +240,6 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                   else if (rand < 0.13) {
                     powerUps.add(new PowerUp(4, e.getX(), e.getY()));
                 }
-                  else powerUps.add(new PowerUp(4, e.getX(), e.getY()));
-
                 player.addScore(e.getType() + e.getRank());
                 enemies.remove(i);
                 i--;
@@ -237,12 +247,20 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 e.explode();
                 explosions.add(new Explosion(e.getX(), e.getY(), e.getR(), e.getR() + 20));
             }
+
+
         }
 
         // player position
         int px = player.getX();
         int py = player.getY();
         int pr = player.getR();
+
+        // check player dead
+
+        if(player.isDead()) {
+            running = false;
+        }
 
         // player-enemy collision
         if (!player.isRecovering()) {
@@ -411,15 +429,49 @@ public class GamePanel extends JPanel implements Runnable, KeyListener {
                 enemies.add(new Enemy(1, 1));
             }
         } else if (waveNumber == 2) {
+            for (int i = 0; i < 8; i++) {
+                enemies.add(new Enemy(1, 1));
+            }
+//            enemies.add(new Enemy(1, 2));
+//            enemies.add(new Enemy(1, 2));
+        } else if (waveNumber == 3) {
             for (int i = 0; i < 4; i++) {
                 enemies.add(new Enemy(1, 1));
             }
             enemies.add(new Enemy(1, 2));
             enemies.add(new Enemy(1, 2));
-        } else if (waveNumber == 3) {
-            enemies.add(new Enemy(1, 3));
+        }
+        else if (waveNumber == 4) {
             enemies.add(new Enemy(1, 3));
             enemies.add(new Enemy(1, 4));
+            for (int i = 0; i < 4; i++) {
+                enemies.add(new Enemy(2, 1));
+            }
+        }
+        else if (waveNumber == 5) {
+            enemies.add(new Enemy(1, 4));
+            enemies.add(new Enemy(1, 3));
+            enemies.add(new Enemy(2, 3));
+        }
+        else if (waveNumber == 6) {
+            enemies.add(new Enemy(1, 3));
+            for (int i = 0; i < 4; i++) {
+                enemies.add(new Enemy(2, 1));
+                enemies.add(new Enemy(3, 1));
+            }
+        }
+        else if (waveNumber == 7) {
+            enemies.add(new Enemy(1, 3));
+            enemies.add(new Enemy(2, 3));
+            enemies.add(new Enemy(3, 3));
+        }
+        else if (waveNumber == 8) {
+            enemies.add(new Enemy(1, 4));
+            enemies.add(new Enemy(2, 4));
+            enemies.add(new Enemy(3, 4));
+        }
+        else if (waveNumber ==9) {
+            running = false;
         }
     }
 

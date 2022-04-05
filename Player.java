@@ -81,6 +81,8 @@ public class Player {
         return lives;
     }
 
+    public boolean isDead() { return lives <= 0; }
+
     public boolean isRecovering() {
         return recovering;
     }
