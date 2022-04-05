@@ -2,8 +2,7 @@ import java.awt.*;
 
 
 public class Player {
-    //Fields
-
+    // Fields
     private int x;
     private int y;
     private int r;
@@ -81,7 +80,9 @@ public class Player {
         return lives;
     }
 
-    public boolean isDead() { return lives <= 0; }
+    public boolean isDead() {
+        return lives <= 0;
+    }
 
     public boolean isRecovering() {
         return recovering;
@@ -123,8 +124,8 @@ public class Player {
 
     public void increasePower(int i) {
         power += i;
-        if (powerLevel == 4){
-            if(power > requiredPower[powerLevel]) {
+        if (powerLevel == 4) {
+            if (power > requiredPower[powerLevel]) {
                 power = requiredPower[powerLevel];
             }
             return;

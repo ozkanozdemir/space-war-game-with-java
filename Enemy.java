@@ -3,8 +3,7 @@ import java.awt.*;
 
 public class Enemy {
 
-    //Fields
-
+    // Fields
     private double x, y;
     private int r, health, type, rank;
 
@@ -18,7 +17,7 @@ public class Enemy {
 
     private boolean slow;
 
-    //Constructor
+    // Constructor
 
     public Enemy(int type, int rank) {
         this.type = type;
@@ -125,7 +124,9 @@ public class Enemy {
         return rank;
     }
 
-    public void setSlow(boolean b) {slow = b;}
+    public void setSlow(boolean b) {
+        slow = b;
+    }
 
     public boolean isDead() {
         return dead;
@@ -133,7 +134,7 @@ public class Enemy {
 
     public void hit() {
         health--;
-        if (health < 0) {
+        if (health <= 0) {
             dead = true;
         }
         hit = true;
@@ -172,11 +173,10 @@ public class Enemy {
 
     public void update() {
 
-        if(slow){
+        if (slow) {
             x += dx * 0.3;
             y += dy * 0.3;
-        }
-        else {
+        } else {
             x += dx;
             y += dy;
         }
@@ -209,22 +209,22 @@ public class Enemy {
     }
 
     public void draw(Graphics2D g) {
-       if (hit) {
-           g.setColor(Color.WHITE);
-           g.fillOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
+        if (hit) {
+            g.setColor(Color.WHITE);
+            g.fillOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
 
-           g.setStroke(new BasicStroke(3));
-           g.setColor(Color.WHITE.darker());
-           g.drawOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
-           g.setStroke(new BasicStroke(1));
-       } else {
-           g.setColor(color1);
-           g.fillOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
+            g.setStroke(new BasicStroke(3));
+            g.setColor(Color.WHITE.darker());
+            g.drawOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
+            g.setStroke(new BasicStroke(1));
+        } else {
+            g.setColor(color1);
+            g.fillOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
 
-           g.setStroke(new BasicStroke(3));
-           g.setColor(color1.darker());
-           g.drawOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
-           g.setStroke(new BasicStroke(1));
-       }
+            g.setStroke(new BasicStroke(3));
+            g.setColor(color1.darker());
+            g.drawOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
+            g.setStroke(new BasicStroke(1));
+        }
     }
 }

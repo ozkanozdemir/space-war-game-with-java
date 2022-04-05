@@ -3,8 +3,7 @@ import java.awt.*;
 
 public class Bullet {
 
-    //Fields
-
+    // Fields
     private double x;
     private double y;
     private int r;
@@ -16,9 +15,9 @@ public class Bullet {
 
     private Color color1;
 
-    //Constructor
+    // Constructor
 
-    public Bullet (double angle, int x, int y) {
+    public Bullet(double angle, int x, int y) {
         this.x = x;
         this.y = y;
         r = 2;
@@ -30,29 +29,32 @@ public class Bullet {
         color1 = Color.YELLOW;
     }
 
-    //Functions
-    public double getX() {return x;}
-    public double getY() {return y;}
-    public double getR() {return r;}
+    // Functions
+    public double getX() {
+        return x;
+    }
 
+    public double getY() {
+        return y;
+    }
+
+    public double getR() {
+        return r;
+    }
 
     public boolean update() {
         x += dx;
         y += dy;
 
-        if(x < -r || x > GamePanel.WIDTH + r || y < -r || y > GamePanel.HEIGHT + r){
+        if (x < -r || x > GamePanel.WIDTH + r || y < -r || y > GamePanel.HEIGHT + r) {
             return true;
         }
 
         return false;
     }
 
-    public void draw(Graphics2D g){
-
+    public void draw(Graphics2D g) {
         g.setColor(color1);
-        g.fillOval((int) (x-r), (int) (y-r), 2 * r, 2 * r);
-
-
+        g.fillOval((int) (x - r), (int) (y - r), 2 * r, 2 * r);
     }
-
 }
