@@ -73,19 +73,19 @@ public class Enemy {
             if (rank == 1) {
                 speed = 1.5;
                 r = 5;
-                health = 5;
+                health = 3;
             } else if (rank == 2) {
                 speed = 1.5;
                 r = 10;
-                health = 6;
+                health = 4;
             } else if (rank == 3) {
                 speed = 1.5;
                 r = 25;
-                health = 7;
+                health = 5;
             } else if (rank == 4) {
                 speed = 1.5;
                 r = 45;
-                health = 8;
+                health = 5;
             }
         }
 
@@ -154,6 +154,7 @@ public class Enemy {
 
             for (int i = 0; i < amount; i++) {
                 Enemy e = new Enemy(getType(), getRank() - 1);
+                e.setSlow(slow);
                 e.x = this.x;
                 e.y = this.y;
                 double angle = 0;
